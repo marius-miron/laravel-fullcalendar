@@ -1,0 +1,10 @@
+{
+    "name": "marius/laravel-fullcalendar",
+    "authors": [
+        {
+            "name": "Marius Miron",
+            "email": "marius.costel.miron@gmail.com"
+        }
+    ],
+    "require": {}
+}
