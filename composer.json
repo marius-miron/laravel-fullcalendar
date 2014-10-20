@@ -6,5 +6,7 @@
             "email": "marius.costel.miron@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "laravel/installer": "~1.1"
+    }
 }
