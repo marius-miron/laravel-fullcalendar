@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::post('calendar', 'CalendarController@saveEvent');
+
+Route::get('calendar', 'CalendarController@getAllEvents');
+
+Route::post('calendar/edit', 'CalendarController@editEvent');
