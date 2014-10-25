@@ -16,6 +16,21 @@ body {
     }
 
 #calendar {
+    float : right;
     width: 900px;
+/*    margin-left: 200px;*/
     margin: 0 auto;
     }
+    
+div#mini_calendar {
+        float: left;
+        width : 350px;
+        margin-bottom: 10em;
+        margin-top: 10em;
+    } 
+#mini_calendar body {
+/*    margin-top: 40px;*/
+    text-align: center;
+    font-size: 9px;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;    
+    }   
