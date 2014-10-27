@@ -6,9 +6,14 @@
 
 $(document).ready(function () {
 
-    // page is now ready, initialize the calendar...
-
-    $('#calendar').fullCalendar({
+     $('#calendar').fullCalendar({
+        
+        selectable: true,
+        editable: true,
+        defaultView: 'month',
+        eventLimit: true,
+        firstDay: 1,
+        events: {url: 'calendar'},
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -28,17 +33,37 @@ $(document).ready(function () {
             }
             $('#calendar').fullCalendar('unselect');
         },
-        selectable: true,
-        editable: true,
-        defaultView: 'month',
-        eventLimit: true,
-        events: {url: 'calendar'},
+                
         eventClick: function (event) {
             var title = prompt('Edit:');
             event.title = title;
-            $('#calendar').fullCalendar('updateEvent', event);
-            $.post('calendar/edit', {'id' : event.id, 'text': title});
+            if(title){
+                $('#calendar').fullCalendar('updateEvent', event);
+                $.post('calendar/edit', {'id' : event.id, 'text': title});
+            }
+        },
+
+        eventDrop: function(event, revertFunc) {
+
+            alert(event.title + " was moved on " + event.start.format());
+
+            if (!confirm("Are you sure about that?")) {
+                revertFunc();
+            }
+            
+            $.post('calendar/drag', {'id' : event.id, 'date': event.start.format()});
+        },
+        
+        eventDragStop: function(event,jsEvent) {
+
+            if( (jsEvent.pageX <= 250)  & (jsEvent.pageY <= 250)){
+                if (confirm('Delete '+ event.title + ' ?')) {
+                    $('#calendar').fullCalendar('removeEvents', event.id);
+                    $.post('calendar/delete', {'id' : event.id });
+                }    
+            }
         }
+        
     });
 
 
@@ -47,24 +72,9 @@ $(document).ready(function () {
             left: 'prev,next',
             center: 'title'
         },
-        select: function (start, end) {
-            var title = prompt('Event Title:');
-            var eventData;
-            if (title) {
-                eventData = {
-                    title: title,
-                    start: start,
-                    end: end
-                };
-                $('#mini_calendar').fullCalendar('renderEvent', eventData, true);
-                $.post('calendar', {'date': start.format(), 'text': title});
-            }
-            $('#mini_calendar').fullCalendar('unselect');
-        },
-        selectable: true,
-        editable: true,
         defaultView: 'month',
         eventLimit: true,
+        firstDay: 1,
         events: {url: 'calendar'}
     });
 });
