@@ -31,5 +31,20 @@ class CalendarController extends BaseController {
         $event->title = $postData['text'];
         $event->save();
     }
+    
+    public function dragEvent() {
+        $postData = Input::all();
+        $event = EventModel::find($postData['id']);
+
+        $event->start = $postData['date'];
+        $event->save();
+    }
+    
+    public function deleteEvent() {
+
+        $postData = Input::all();
+        $event = EventModel::find($postData['id']);
+        $event->delete();
+    }
 
 }
