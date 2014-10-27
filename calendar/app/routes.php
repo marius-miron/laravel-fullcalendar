@@ -21,3 +21,7 @@ Route::post('calendar', 'CalendarController@saveEvent');
 Route::get('calendar', 'CalendarController@getAllEvents');
 
 Route::post('calendar/edit', 'CalendarController@editEvent');
+
+Route::post('calendar/drag', 'CalendarController@dragEvent');
+
+Route::post('calendar/delete', 'CalendarController@deleteEvent');
